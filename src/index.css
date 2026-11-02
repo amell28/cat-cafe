@@ -81,6 +81,7 @@ body, html {
 .app-viewport {
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -148,6 +149,12 @@ body, html {
   gap: 4px;
   overflow-x: auto;
   max-width: 62%;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.camera-views-strip::-webkit-scrollbar {
+  display: none;
 }
 
 .view-pill {
@@ -224,6 +231,14 @@ body, html {
   gap: 10px;
   padding: 8px 12px;
   pointer-events: auto;
+  max-width: calc(100vw - 28px);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.bottom-dock::-webkit-scrollbar {
+  display: none;
 }
 
 .dock-item {
@@ -444,26 +459,280 @@ body, html {
   background: rgba(140, 120, 100, 0.4);
 }
 
+/* Cat Directory Drawer & Mobile Bottom Sheet */
+.cat-directory-backdrop {
+  justify-content: flex-end;
+  padding: 0;
+}
+
+.cat-directory-sheet {
+  width: 100%;
+  max-width: 420px;
+  height: 100vh;
+  height: 100dvh;
+  border-radius: 24px 0 0 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  animation: slideInRight 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #faf8f5;
+  border-left: 1px solid rgba(160, 140, 120, 0.2);
+}
+
+.mobile-sheet-handle {
+  display: none;
+  width: 42px;
+  height: 4.5px;
+  border-radius: 999px;
+  background: rgba(120, 100, 80, 0.25);
+  margin: 0 auto 12px auto;
+  flex-shrink: 0;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+/* Tactile Mobile Touch Feedback */
+.dock-item:active,
+.control-icon-btn:active,
+.btn-primary:active,
+.btn-secondary:active,
+.view-pill:active {
+  transform: scale(0.94);
+}
+
+/* ==================================================== */
+/* COMPREHENSIVE RESPONSIVE DESIGN (TABLET & MOBILE)     */
+/* ==================================================== */
+
+@media (max-width: 900px) {
+  .top-navbar {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .camera-views-strip {
+    max-width: 52%;
+  }
+}
+
 @media (max-width: 768px) {
   .top-navbar {
-    flex-wrap: wrap;
+    top: max(8px, env(safe-area-inset-top));
+    left: 8px;
+    right: 8px;
     padding: 8px 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-radius: var(--radius-md);
   }
+
+  .brand-section {
+    gap: 8px;
+  }
+
+  .brand-icon-wrapper {
+    width: 36px;
+    height: 36px;
+    font-size: 17px;
+    border-radius: 10px;
+  }
+
+  .brand-title {
+    font-size: 1.05rem;
+  }
+
+  .brand-subtitle {
+    display: none; /* Hide subtitle to preserve clean horizontal space on phone */
+  }
+
   .camera-views-strip {
     order: 3;
     max-width: 100%;
     width: 100%;
+    padding: 3px 6px;
+    gap: 4px;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 6px;
   }
+
+  .view-pill {
+    padding: 5px 11px;
+    font-size: 0.76rem;
+    gap: 4px;
+    scroll-snap-align: start;
+  }
+
+  .nav-controls-cluster {
+    gap: 5px;
+  }
+
+  .control-icon-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+  }
+
+  /* Bottom Dock on Mobile */
   .bottom-dock {
-    bottom: 12px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    width: auto;
+    max-width: calc(100vw - 16px);
+    overflow-x: auto;
+    padding: 5px 8px;
     gap: 6px;
-    padding: 6px;
+    border-radius: 16px;
   }
+
   .dock-item {
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 12px;
+    padding: 3px;
+    gap: 2px;
   }
+
+  .dock-item svg {
+    width: 17px;
+    height: 17px;
+  }
+
   .dock-item .dock-label {
-    font-size: 0.6rem;
+    font-size: 0.58rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .dock-item.active {
+    transform: translateY(-4px) scale(1.05);
+  }
+
+  /* Mode Banner on Mobile */
+  .active-mode-banner {
+    bottom: calc(max(10px, env(safe-area-inset-bottom)) + 58px);
+    max-width: min(92vw, 440px);
+    padding: 6px 14px;
+    font-size: 0.74rem;
+    text-align: center;
+    border-radius: 999px;
+    white-space: normal;
+  }
+
+  .active-mode-banner span {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Modals on Mobile */
+  .modal-backdrop {
+    padding: 8px;
+    align-items: flex-end; /* Slide up comfortably from bottom */
+  }
+
+  .modal-card {
+    max-height: 86dvh;
+    padding: 18px 14px max(20px, env(safe-area-inset-bottom)) 14px;
+    border-radius: 20px 20px 14px 14px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .modal-close-btn {
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .btn-primary {
+    padding: 11px 18px;
+    font-size: 0.88rem;
+  }
+
+  .btn-secondary {
+    padding: 9px 14px;
+    font-size: 0.82rem;
+  }
+
+  /* Cat Directory Bottom Sheet on Mobile */
+  .cat-directory-backdrop {
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .cat-directory-sheet {
+    max-width: 100%;
+    height: 82vh;
+    height: 82dvh;
+    border-radius: 24px 24px 0 0;
+    padding: 12px 14px max(24px, env(safe-area-inset-bottom)) 14px;
+    animation: slideInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border-left: none;
+    border-top: 1px solid rgba(160, 140, 120, 0.2);
+  }
+
+  .mobile-sheet-handle {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-navbar {
+    top: max(6px, env(safe-area-inset-top));
+    left: 6px;
+    right: 6px;
+    padding: 6px 8px;
+  }
+
+  .brand-title {
+    font-size: 0.95rem;
+  }
+
+  .view-pill {
+    padding: 4px 9px;
+    font-size: 0.72rem;
+  }
+
+  .nav-controls-cluster {
+    gap: 3px;
+  }
+
+  .control-icon-btn {
+    width: 31px;
+    height: 31px;
+  }
+
+  .control-icon-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .bottom-dock {
+    gap: 4px;
+    padding: 4px;
+  }
+
+  .dock-item {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+  }
+
+  .dock-item svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .dock-item .dock-label {
+    font-size: 0.52rem;
   }
 }

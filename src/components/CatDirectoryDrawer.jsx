@@ -25,21 +25,14 @@ export default function CatDirectoryDrawer({
   };
 
   return (
-    <div className="modal-backdrop" onClick={onClose} style={{ justifyContent: 'flex-end', padding: 0 }}>
+    <div className="modal-backdrop cat-directory-backdrop" onClick={onClose}>
       <div
-        className="glass-panel"
+        className="cat-directory-sheet glass-panel"
         onClick={(e) => e.stopPropagation()}
-        style={{
-          width: '100%',
-          maxWidth: '420px',
-          height: '100vh',
-          borderRadius: '24px 0 0 24px',
-          padding: '24px',
-          display: 'flex',
-          flexDirection: 'column',
-          animation: 'fadeIn 0.25s ease-out'
-        }}
       >
+        {/* Mobile Drag / Grab Indicator Handle */}
+        <div className="mobile-sheet-handle" />
+
         {/* Drawer Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
           <div>

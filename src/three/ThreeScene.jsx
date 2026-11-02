@@ -624,18 +624,26 @@ export default function ThreeScene({
   useEffect(() => {
     if (controlsRef.current) {
       if (activeTool === 'laser') {
-        // While aiming laser, left click won't jerk or spin the camera
-        // Right click or middle wheel still allows rotating the camera
+        // While aiming laser, left click or 1-finger touch won't jerk or spin the camera
+        // Right click or 2-finger pinch/drag allows rotating and zooming the camera
         controlsRef.current.mouseButtons = {
           LEFT: null,
           MIDDLE: THREE.MOUSE.DOLLY,
           RIGHT: THREE.MOUSE.ROTATE
+        };
+        controlsRef.current.touches = {
+          ONE: null,
+          TWO: THREE.TOUCH.DOLLY_ROTATE
         };
       } else {
         controlsRef.current.mouseButtons = {
           LEFT: THREE.MOUSE.ROTATE,
           MIDDLE: THREE.MOUSE.DOLLY,
           RIGHT: THREE.MOUSE.ROTATE
+        };
+        controlsRef.current.touches = {
+          ONE: THREE.TOUCH.ROTATE,
+          TWO: THREE.TOUCH.DOLLY_PAN
         };
       }
     }
@@ -905,6 +913,47 @@ export default function ThreeScene({
     }
   };
 
+  // Dynamic touch control configuration for mobile
+  useEffect(() => {
+    if (!controlsRef.current) return;
+    if (activeTool === 'laser') {
+      // In laser mode, allow single-finger swipe to move the laser across surfaces
+      // Two-finger pinch rotates and zooms
+      controlsRef.current.touches = {
+        ONE: null,
+        TWO: THREE.TOUCH.DOLLY_ROTATE
+      };
+    } else {
+      // In regular mode, single touch orbits camera, two touch zooms/pans
+      controlsRef.current.touches = {
+        ONE: THREE.TOUCH.ROTATE,
+        TWO: THREE.TOUCH.DOLLY_PAN
+      };
+    }
+  }, [activeTool]);
+
+  // Mobile pointer tap tracker for rapid, lag-free tapping on mobile screens
+  const pointerDownPosRef = useRef({ x: 0, y: 0, time: 0 });
+
+  const handlePointerDown = (e) => {
+    pointerDownPosRef.current = {
+      x: e.clientX,
+      y: e.clientY,
+      time: Date.now()
+    };
+    handlePointerMove(e);
+  };
+
+  const handlePointerUp = (e) => {
+    const dx = Math.abs(e.clientX - pointerDownPosRef.current.x);
+    const dy = Math.abs(e.clientY - pointerDownPosRef.current.y);
+    const dt = Date.now() - pointerDownPosRef.current.time;
+    // If user tapped without dragging (< 14px in under 450ms), trigger interaction
+    if (dx < 14 && dy < 14 && dt < 450) {
+      handleCanvasClick(e);
+    }
+  };
+
   // Handle Photobooth Snapshot Request
   useEffect(() => {
     if (snapshotRequested && rendererRef.current && sceneRef.current && cameraRef.current) {
@@ -924,15 +973,19 @@ export default function ThreeScene({
       ref={containerRef}
       className="scene-container"
       onPointerMove={handlePointerMove}
-      onClick={handleCanvasClick}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
       style={{
         width: '100%',
         height: '100%',
         position: 'relative',
+        touchAction: 'none',
+        WebkitTouchCallout: 'none',
+        userSelect: 'none',
         cursor: activeTool === 'laser' ? 'crosshair' : activeTool === 'feed' ? 'cell' : 'grab'
       }}
     >
-      <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
+      <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block', touchAction: 'none' }} />
     </div>
   );
 }

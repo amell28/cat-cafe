@@ -165,23 +165,23 @@ export default function CatProfileModal({
         </div>
 
         {/* Fun Facts & Personality */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '18px' }}>
-          <div style={{ background: '#ffffff', padding: '10px 14px', borderRadius: '12px', fontSize: '0.82rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(135px, 1fr))', gap: '8px', marginBottom: '16px' }}>
+          <div style={{ background: '#ffffff', padding: '10px 12px', borderRadius: '12px', fontSize: '0.82rem' }}>
             <strong style={{ color: '#2f3542' }}>🐟 Snack Favorit:</strong>
             <p style={{ color: '#57606f', marginTop: '3px' }}>{cat.favoriteSnack}</p>
           </div>
-          <div style={{ background: '#ffffff', padding: '10px 14px', borderRadius: '12px', fontSize: '0.82rem' }}>
+          <div style={{ background: '#ffffff', padding: '10px 12px', borderRadius: '12px', fontSize: '0.82rem' }}>
             <strong style={{ color: '#2f3542' }}>✨ Hal yang Disukai:</strong>
             <p style={{ color: '#57606f', marginTop: '3px' }}>{cat.likes}</p>
           </div>
         </div>
 
         {/* Wearable Accessories Customization */}
-        <div style={{ marginBottom: '20px' }}>
+        <div style={{ marginBottom: '18px' }}>
           <h3 style={{ fontSize: '0.88rem', fontWeight: '700', marginBottom: '8px', color: '#2f3542' }}>
             🎩 Pilih Aksesoris 3D
           </h3>
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
             {CAT_ACCESSORIES.map((acc) => {
               const isSelected = (cat.accessory || 'none') === acc.id;
               return (
@@ -194,14 +194,14 @@ export default function CatProfileModal({
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '6px',
-                    padding: '6px 12px',
+                    gap: '5px',
+                    padding: '6px 11px',
                     borderRadius: '999px',
                     border: isSelected ? '2px solid #8d6e63' : '1px solid rgba(0,0,0,0.1)',
                     background: isSelected ? '#f5ede3' : '#ffffff',
                     color: isSelected ? '#5d4037' : '#57606f',
                     cursor: 'pointer',
-                    fontSize: '0.8rem',
+                    fontSize: '0.78rem',
                     fontWeight: isSelected ? '700' : '500',
                     transition: 'all 0.15s ease'
                   }}
@@ -215,50 +215,53 @@ export default function CatProfileModal({
         </div>
 
         {/* Action Buttons Row */}
-        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
           <button
             className="btn-secondary"
+            style={{ flex: '1 1 calc(33.3% - 6px)', minWidth: '85px', padding: '9px 8px' }}
             onClick={() => {
               soundEngine.playPurr();
               onPetCat(cat.id);
             }}
           >
-            <Heart size={16} color="#8d6e63" />
-            <span>Elus Kucing</span>
+            <Heart size={15} color="#8d6e63" />
+            <span>Elus</span>
           </button>
 
           <button
             className="btn-secondary"
+            style={{ flex: '1 1 calc(33.3% - 6px)', minWidth: '85px', padding: '9px 8px' }}
             onClick={() => {
               soundEngine.playTreatCrunch();
               onFeedCat(cat.id);
             }}
           >
-            <Fish size={16} color="#ffa502" />
-            <span>Beri Snack</span>
+            <Fish size={15} color="#ffa502" />
+            <span>Snack</span>
           </button>
 
           <button
             className="btn-secondary"
+            style={{ flex: '1 1 calc(33.3% - 6px)', minWidth: '85px', padding: '9px 8px' }}
             onClick={() => {
               soundEngine.playBubble();
               onStartSpa(cat);
             }}
           >
-            <Bath size={16} color="#70a1ff" />
-            <span>Mandi & Spa</span>
+            <Bath size={15} color="#70a1ff" />
+            <span>Spa</span>
           </button>
 
-          <div style={{ flex: 1, minWidth: '160px', textAlign: 'right' }}>
+          <div style={{ flex: '1 1 100%', marginTop: '4px' }}>
             <button
               className="btn-primary"
-              style={{ width: '100%' }}
+              style={{ width: '100%', padding: '12px 16px' }}
               onClick={() => {
                 soundEngine.playClick();
                 onOpenAdoptionModal(cat);
               }}
             >
-              <Award size={18} />
+              <Award size={17} />
               <span>{cat.isAdopted ? 'Lihat Sertifikat Adopsi' : 'Adopsi Kucing Ini! 💖'}</span>
             </button>
           </div>

@@ -43,6 +43,15 @@ export const soundEngine = {
     return isMuted;
   },
 
+  // Subtle mobile haptic vibration
+  triggerHaptic(duration = 12) {
+    if (typeof navigator !== 'undefined' && navigator.vibrate) {
+      try {
+        navigator.vibrate(duration);
+      } catch (e) {}
+    }
+  },
+
   // Play a cute procedural cat meow
   playMeow(pitchMultiplier = 1.0) {
     if (isMuted) return;
@@ -208,6 +217,7 @@ export const soundEngine = {
 
   // Play click / UI interaction pop
   playClick() {
+    this.triggerHaptic(8);
     if (isMuted) return;
     const ctx = getAudioContext();
     if (!ctx) return;
@@ -359,6 +369,7 @@ export const soundEngine = {
 
   // Play crisp handheld laser pointer click / switch sound
   playLaserClick() {
+    this.triggerHaptic(14);
     if (isMuted) return;
     const ctx = getAudioContext();
     if (!ctx) return;
@@ -419,6 +430,7 @@ export const soundEngine = {
 
   // Play cafe entrance door chime / latch sound
   playDoorSound(isOpen) {
+    this.triggerHaptic(18);
     if (isMuted) return;
     const ctx = getAudioContext();
     if (!ctx) return;
@@ -464,6 +476,7 @@ export const soundEngine = {
 
   // Play espresso machine brewing & steaming sound
   playCoffeeBrew() {
+    this.triggerHaptic(20);
     if (isMuted) return;
     const ctx = getAudioContext();
     if (!ctx) return;

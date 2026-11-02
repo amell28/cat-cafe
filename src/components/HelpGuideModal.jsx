@@ -15,17 +15,17 @@ export default function HelpGuideModal({ isOpen, onClose }) {
           <X size={18} />
         </button>
 
-        <div style={{ textAlign: 'center', marginBottom: '18px' }}>
-          <div style={{ fontSize: '36px', marginBottom: '6px' }}>🐾 ✨</div>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.6rem', color: '#2f3542' }}>
+        <div style={{ textAlign: 'center', marginBottom: '16px' }}>
+          <div style={{ fontSize: '32px', marginBottom: '4px' }}>🐾 ✨</div>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.2rem, 4.8vw, 1.6rem)', color: '#2f3542' }}>
             Selamat Datang di NekoHaven 3D!
           </h2>
-          <p style={{ fontSize: '0.85rem', color: '#747d8c' }}>
+          <p style={{ fontSize: '0.82rem', color: '#747d8c' }}>
             Panduan Interaksi Dunia 3D Pet Shop & Kucing-kucing Lucu
           </p>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', maxHeight: '60vh', overflowY: 'auto', paddingRight: '4px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxHeight: 'min(58dvh, 520px)', overflowY: 'auto', WebkitOverflowScrolling: 'touch', paddingRight: '4px' }}>
           {/* Section 1: Navigasi Kamera */}
           <div style={{ background: '#ffffff', padding: '14px', borderRadius: '14px', border: '1px solid rgba(0,0,0,0.06)' }}>
             <h3 style={{ fontSize: '0.92rem', fontWeight: '700', color: '#2f3542', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>

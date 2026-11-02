@@ -52,7 +52,7 @@ export default function PhotoboothModal({
         <div
           style={{
             background: '#ffffff',
-            padding: '16px 16px 28px 16px',
+            padding: 'clamp(12px, 3.5vw, 16px) clamp(12px, 3.5vw, 16px) clamp(18px, 5vw, 28px) clamp(12px, 3.5vw, 16px)',
             borderRadius: '12px',
             boxShadow: '0 12px 32px rgba(0,0,0,0.18)',
             marginBottom: '16px',
@@ -66,7 +66,7 @@ export default function PhotoboothModal({
               borderRadius: '8px',
               overflow: 'hidden',
               background: '#000',
-              marginBottom: '14px'
+              marginBottom: '12px'
             }}
           >
             <img
@@ -77,18 +77,19 @@ export default function PhotoboothModal({
           </div>
 
           {/* Polaroid Handwritten Caption & Sticker */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 4px', flexWrap: 'wrap', gap: '6px' }}>
             <span
               style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: '1.05rem',
+                fontSize: 'clamp(0.88rem, 3.2vw, 1.05rem)',
                 color: '#2f3542',
-                fontWeight: '600'
+                fontWeight: '600',
+                textAlign: 'left'
               }}
             >
               {selectedSticker}
             </span>
-            <span style={{ fontSize: '0.78rem', color: '#a4b0be' }}>
+            <span style={{ fontSize: '0.75rem', color: '#a4b0be' }}>
               {currentDate}
             </span>
           </div>
@@ -105,7 +106,7 @@ export default function PhotoboothModal({
                 key={stk}
                 onClick={() => setSelectedSticker(stk)}
                 style={{
-                  padding: '4px 10px',
+                  padding: '5px 11px',
                   borderRadius: '999px',
                   border: selectedSticker === stk ? '1.5px solid #ff4757' : '1px solid rgba(0,0,0,0.1)',
                   background: selectedSticker === stk ? '#fff0f2' : '#ffffff',
@@ -121,11 +122,11 @@ export default function PhotoboothModal({
         </div>
 
         {/* Action Buttons */}
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <button className="btn-secondary" style={{ flex: 1 }} onClick={onClose}>
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <button className="btn-secondary" style={{ flex: '1 1 120px' }} onClick={onClose}>
             Ambil Ulang
           </button>
-          <button className="btn-primary" style={{ flex: 1.4 }} onClick={handleDownload}>
+          <button className="btn-primary" style={{ flex: '1.4 1 160px' }} onClick={handleDownload}>
             <Download size={16} />
             <span>Download Foto Polaroid</span>
           </button>

@@ -120,51 +120,55 @@ export default function AdoptionCertificateModal({
           // Official Issued Adoption Certificate
           <div id="printable-certificate">
             <div
+              className="adoption-certificate-frame"
               style={{
-                border: '6px double #d4af37',
+                border: 'clamp(4px, 1.2vw, 6px) double #d4af37',
                 borderRadius: '16px',
-                padding: '24px',
+                padding: 'clamp(14px, 4vw, 24px)',
                 background: '#fffdf9',
                 textAlign: 'center',
                 boxShadow: 'inset 0 0 20px rgba(212, 175, 55, 0.15)',
                 position: 'relative'
               }}
             >
-              <div style={{ fontSize: '28px', marginBottom: '6px' }}>🐾 👑 🐾</div>
+              <div style={{ fontSize: 'clamp(20px, 5.5vw, 28px)', marginBottom: '4px' }}>🐾 👑 🐾</div>
               <h2
                 style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: '1.7rem',
+                  fontSize: 'clamp(1.15rem, 4.8vw, 1.7rem)',
                   color: '#b8860b',
                   letterSpacing: '0.04em',
-                  textTransform: 'uppercase'
+                  textTransform: 'uppercase',
+                  lineHeight: '1.2'
                 }}
               >
                 Sertifikat Resmi Adopsi
               </h2>
-              <p style={{ fontSize: '0.8rem', color: '#7f8c8d', letterSpacing: '0.08em', marginBottom: '16px' }}>
+              <p style={{ fontSize: 'clamp(0.68rem, 2.2vw, 0.8rem)', color: '#7f8c8d', letterSpacing: '0.06em', marginBottom: '12px' }}>
                 NEKOHAVEN 3D PET BOUTIQUE & RESCUE LOUNGE
               </p>
 
-              <p style={{ fontSize: '0.9rem', color: '#57606f', marginBottom: '8px' }}>
+              <p style={{ fontSize: 'clamp(0.8rem, 2.6vw, 0.9rem)', color: '#57606f', marginBottom: '6px' }}>
                 Dengan ini secara resmi mengukuhkan bahwa:
               </p>
 
               <h3
                 style={{
-                  fontSize: '1.8rem',
+                  fontSize: 'clamp(1.2rem, 5vw, 1.75rem)',
                   fontFamily: 'var(--font-display)',
                   color: '#ff4757',
                   borderBottom: '2px solid #f1c40f',
                   display: 'inline-block',
-                  padding: '2px 24px',
-                  marginBottom: '14px'
+                  padding: '2px 16px',
+                  marginBottom: '12px',
+                  maxWidth: '100%',
+                  wordBreak: 'break-word'
                 }}
               >
                 {adopterName || cat.adopterName}
               </h3>
 
-              <p style={{ fontSize: '0.9rem', color: '#57606f', marginBottom: '8px' }}>
+              <p style={{ fontSize: 'clamp(0.8rem, 2.6vw, 0.9rem)', color: '#57606f', marginBottom: '6px' }}>
                 Telah resmi mengangkat dan menjadi orang tua asuh penuh kasih bagi:
               </p>
 
@@ -172,41 +176,45 @@ export default function AdoptionCertificateModal({
                 style={{
                   background: '#fef5e7',
                   borderRadius: '12px',
-                  padding: '10px 16px',
+                  padding: '8px 14px',
                   display: 'inline-block',
-                  marginBottom: '18px'
+                  marginBottom: '14px',
+                  maxWidth: '100%'
                 }}
               >
-                <span style={{ fontSize: '1.2rem', fontWeight: '800', color: '#d35400' }}>
+                <span style={{ fontSize: 'clamp(0.95rem, 3.5vw, 1.2rem)', fontWeight: '800', color: '#d35400' }}>
                   🐱 {cat.name}
                 </span>
-                <span style={{ fontSize: '0.85rem', color: '#7f8c8d', marginLeft: '8px' }}>
+                <span style={{ fontSize: 'clamp(0.72rem, 2.4vw, 0.85rem)', color: '#7f8c8d', marginLeft: '6px' }}>
                   ({cat.breed} • {cat.gender})
                 </span>
               </div>
 
+              {/* Certificate Seal & Info Row */}
               <div
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  fontSize: '0.78rem',
+                  fontSize: 'clamp(0.68rem, 2.2vw, 0.78rem)',
                   color: '#7f8c8d',
                   borderTop: '1px dashed #d4af37',
-                  paddingTop: '14px',
-                  marginTop: '10px'
+                  paddingTop: '12px',
+                  marginTop: '10px',
+                  gap: '8px',
+                  flexWrap: 'wrap'
                 }}
               >
-                <div>
+                <div style={{ textAlign: 'left', minWidth: '85px', flex: '1 1 85px' }}>
                   <p><strong>Nomor Registrasi:</strong></p>
-                  <p>{certificateId}</p>
+                  <p style={{ fontSize: 'clamp(0.62rem, 1.8vw, 0.74rem)' }}>{certificateId}</p>
                 </div>
 
                 {/* Wax / Gold Stamp */}
                 <div
                   style={{
-                    width: '64px',
-                    height: '64px',
+                    width: 'clamp(46px, 11vw, 62px)',
+                    height: 'clamp(46px, 11vw, 62px)',
                     borderRadius: '50%',
                     background: 'radial-gradient(circle, #f1c40f 0%, #b8860b 100%)',
                     display: 'flex',
@@ -215,29 +223,30 @@ export default function AdoptionCertificateModal({
                     justifyContent: 'center',
                     color: '#ffffff',
                     boxShadow: '0 4px 10px rgba(0,0,0,0.15)',
-                    fontSize: '0.55rem',
+                    fontSize: 'clamp(0.46rem, 1.2vw, 0.55rem)',
                     fontWeight: '800',
-                    lineHeight: '1.1'
+                    lineHeight: '1.1',
+                    flexShrink: 0
                   }}
                 >
-                  <Award size={18} />
+                  <Award size={15} />
                   <span>OFFICIAL</span>
                   <span>SEAL</span>
                 </div>
 
-                <div>
+                <div style={{ textAlign: 'right', minWidth: '85px', flex: '1 1 85px' }}>
                   <p><strong>Tanggal Adopsi:</strong></p>
-                  <p>{currentDate}</p>
+                  <p style={{ fontSize: 'clamp(0.62rem, 1.8vw, 0.74rem)' }}>{currentDate}</p>
                 </div>
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '10px', marginTop: '18px' }}>
-              <button className="btn-secondary" style={{ flex: 1 }} onClick={handlePrint}>
+            <div style={{ display: 'flex', gap: '8px', marginTop: '16px', flexWrap: 'wrap' }}>
+              <button className="btn-secondary" style={{ flex: '1 1 130px' }} onClick={handlePrint}>
                 <Printer size={16} />
                 <span>Cetak Sertifikat</span>
               </button>
-              <button className="btn-primary" style={{ flex: 1 }} onClick={onClose}>
+              <button className="btn-primary" style={{ flex: '1 1 130px' }} onClick={onClose}>
                 <CheckCircle2 size={16} />
                 <span>Selesai & Tutup</span>
               </button>
